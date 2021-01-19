@@ -2,7 +2,7 @@ import * as Busboy from 'busboy';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 
 // TODO: load from env variables
-export const BUCKET_NAME = 'serverless-example-bucket';
+export const BUCKET_NAME = 'bira-bucket';
 
 export interface UploadedFile {
   filename: string;
@@ -11,7 +11,7 @@ export interface UploadedFile {
   content: Buffer | string;
 }
 
-export interface FormData {
+export interface FormData {  
   file?: UploadedFile;
   fields: Record<string, any>;
 }

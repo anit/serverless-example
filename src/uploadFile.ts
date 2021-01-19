@@ -1,4 +1,4 @@
-import { APIGatewayProxyHandler } from 'aws-lambda';
+// import { APIGatewayProxyHandler } from 'aws-lambda';
 import { S3 } from 'aws-sdk';
 import * as queryString from 'querystring';
 import { parseFormData, BUCKET_NAME } from './common';
@@ -6,7 +6,7 @@ import { parseFormData, BUCKET_NAME } from './common';
 const s3Client = new S3();
 
 
-export const uploadFile: APIGatewayProxyHandler = async (event) => {
+export const uploadFile = async (event) => {
   const { file, fields } = await parseFormData(event);
 
   if (!file ) {

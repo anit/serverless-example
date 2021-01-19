@@ -1,9 +1,8 @@
-service: serverless-example
+service: bira
 
 provider:
   name: aws
   runtime: nodejs12.x
-  profile: transkribo
   versionFunctions: false
   stage: ${opt:stage, 'dev'}
   apiGateway:
@@ -30,29 +29,12 @@ functions:
           method: post
           path: upload
           cors: true
-  # option 2: pre-signed URL
-  createUploadUrl:
-    handler: build.createUploadUrl
-    events: 
-      - http: 
-          method: post
-          path: createUploadUrl
-          cors: true
-  # option 3: post-signed URL
-  createPostUploadUrl:
-    handler: build.createPostUploadUrl
-    events: 
-      - http: 
-          method: post
-          path: createPostUploadUrl
-          cors: true
-
 resources:
   Resources:
     MyServerlessExampleBucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: serverless-example-bucket
+        BucketName: bira-bucket
 
     # define a policy for an existing role
     UploadFilePolicy:
@@ -74,4 +56,4 @@ resources:
                     - Ref: MyServerlessExampleBucket
                     - "/*"
         Roles:
-          - serverless-example-dev-us-east-1-lambdaRole 
+          - bira-dev-us-east-1-lambdaRole 
