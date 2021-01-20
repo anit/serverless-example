@@ -1,8 +1,14 @@
 // import { APIGatewayProxyHandler } from 'aws-lambda';
+import 'source-map-support/register';
+import { config } from 'aws-sdk';
+import * as Sentry from '@sentry/serverless';
 import { S3 } from 'aws-sdk';
-import * as queryString from 'querystring';
-import { parseFormData, BUCKET_NAME } from './common';
+import { parseFormData, BUCKET_NAME } from './src/common';
 
+Sentry.init({
+  dsn: 'https://05a20094184b4087b4554b7be35dd2fb@cs-sentry.crowdstaffing.com/4',
+});
+config.update({ region: 'us-west-2' });
 const s3Client = new S3();
 
 
@@ -16,14 +22,12 @@ export const uploadFile = async (event) => {
     }
   }
 
-  const tags = file?.filename ? { filename: file?.filename }: undefined;
   try {
     await s3Client
       .putObject({
         Bucket: BUCKET_NAME,
         Key: fields.filename || file?.filename,
-        Body: file.content,
-        Tagging: queryString.encode(tags),
+        Body: file.content
       })
       .promise();
 
@@ -39,3 +43,6 @@ export const uploadFile = async (event) => {
     }
   }
 };
+
+
+exports.uploadFile = Sentry.AWSLambda.wrapHandler(uploadFile);

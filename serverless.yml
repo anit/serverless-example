@@ -1,4 +1,29 @@
-service: bira
+service:
+  name: bira
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: 
+      forceExclude:
+        - aws-sdk
+  serverless-offline:
+    httpPort: 3200
+  serverless-offline-ssm:
+    stages:
+      - next
+      - uat
+      - prod
+
+
+package:
+  exclude:
+  - .vscode/**
+  - .tests/**
+
+# Add the serverless-webpack plugin
+plugins:
+  - serverless-webpack
 
 provider:
   name: aws
@@ -10,25 +35,15 @@ provider:
     binaryMediaTypes:
       - 'multipart/form-data'
 
-package:
-  exclude:
-    - ./*.md
-    - ./*.js
-    - ./**/*.ts
-    - ./**.json
-    - ./__tests__/**
-  include:
-    - build/**
-
 functions:
-  # option 1: sync upload
   uploadFile:
-    handler: build.uploadFile
-    events:
-      - http:
-          method: post
-          path: upload
-          cors: true
+      handler: handler.uploadFile
+      events:
+        - http:
+            method: post
+            path: upload
+            cors: true
+
 resources:
   Resources:
     MyServerlessExampleBucket:
