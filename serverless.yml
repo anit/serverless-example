@@ -43,7 +43,13 @@ functions:
             method: post
             path: upload
             cors: true
-
+  parseResume:
+      handler: handler.parseResume
+      events:
+        - http:
+            method: post
+            path: parse_resume
+            cors: true 
 resources:
   Resources:
     MyServerlessExampleBucket:

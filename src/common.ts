@@ -3,6 +3,7 @@ import { APIGatewayProxyEvent } from 'aws-lambda';
 
 // TODO: load from env variables
 export const BUCKET_NAME = 'bira-bucket';
+export const DAXTRA_BASE_URL = 'https://cvxdemo.daxtra.com/cvx/rest/api/v1';
 
 export interface UploadedFile {
   filename: string;
