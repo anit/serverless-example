@@ -9,8 +9,10 @@
   "dependencies": {
     "@sentry/serverless": "^5.24.2",
     "aws-sdk": "^2.703.0",
+    "axios": "^0.21.1",
     "busboy": "^0.3.1",
     "cookie": "^0.4.1",
+    "form-data": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
     "source-map-support": "^0.5.10"
   },

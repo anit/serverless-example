@@ -3,6 +3,7 @@ import { APIGatewayProxyEvent } from 'aws-lambda';
 
 // TODO: load from env variables
 export const BUCKET_NAME = 'bira-bucket';
+export const DAXTRA_BASE_URL = 'https://cvxdemo.daxtra.com/cvx/rest/api/v1';
 
 export interface UploadedFile {
   filename: string;
@@ -22,7 +23,7 @@ export interface FormData {
 export const parseFormData = async (event: APIGatewayProxyEvent): Promise<FormData> =>
   new Promise((resolve, reject) => {
     const busboy = new Busboy({
-      headers: { 'content-type': event.headers['content-type'] },
+      headers: { 'content-type': event.headers['Content-Type'] || event.headers['content-type'] },
     });
     const fields: Record<string, any> = {};
     let uploadedFile: UploadedFile;
