@@ -4,7 +4,6 @@ import { config } from "aws-sdk";
 import * as Sentry from "@sentry/serverless";
 import { S3 } from "aws-sdk";
 import { parseFormData, BUCKET_NAME, DAXTRA_BASE_URL } from "./src/common";
-import * as https from "https";
 import axios from "axios";
 import FormData from "form-data";
 

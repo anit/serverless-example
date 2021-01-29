@@ -23,7 +23,7 @@ export interface FormData {
 export const parseFormData = async (event: APIGatewayProxyEvent): Promise<FormData> =>
   new Promise((resolve, reject) => {
     const busboy = new Busboy({
-      headers: { 'content-type': event.headers['content-type'] },
+      headers: { 'content-type': event.headers['Content-Type'] || event.headers['content-type'] },
     });
     const fields: Record<string, any> = {};
     let uploadedFile: UploadedFile;
